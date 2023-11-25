@@ -41,7 +41,7 @@ const Header = () => {
     >
       <Wrapper className="h-[60px] flex justify-between items-center">
         <h1
-          className="text-3xl font-extrabold text-yellow-300 cursor-pointer"
+          className="md:text-3xl font-extrabold text-2xl text-yellow-300 cursor-pointer"
           onClick={() => route.push("/")}
         >
           SHOP<span className="text-indigo-950">CART</span>

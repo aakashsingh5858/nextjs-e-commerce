@@ -1,5 +1,6 @@
+import { getAllProducts } from "@/app/api/api";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { BsChevronDown } from "react-icons/bs";
 
 const Menu = ({ showCatMenu, setShowCatMenu }) => {
@@ -16,6 +17,14 @@ const Menu = ({ showCatMenu, setShowCatMenu }) => {
     { id: 3, name: "Running shoes", doc_count: 64 },
     { id: 4, name: "Football shoes", doc_count: 107 },
   ];
+  // useEffect(() => {
+  //   getAllProductsData();
+  // }, []);
+  // const getAllProductsData = () => {
+  //   getAllProducts().then((res) => {
+  //     console.log(res);
+  //   });
+  // };
   return (
     <ul className="hidden md:flex items-center gap-8 font-medium text-black">
       {menuList.map((l, i) => {
