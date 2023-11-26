@@ -8,6 +8,7 @@ import { BsCart } from "react-icons/bs";
 import { BiMenuAltRight } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
 import MenuMobile from "./MenuMobile";
+import { getAllCategories } from "@/app/api/api";
 
 const Header = () => {
   const route = useRouter();
@@ -15,6 +16,7 @@ const Header = () => {
   const [showCatMenu, setShowCatMenu] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [categories, setCategories] = useState(null);
 
   const controlNavbar = () => {
     if (window.scrollY > 200) {
@@ -35,6 +37,14 @@ const Header = () => {
       window.removeEventListener("scroll", controlNavbar);
     };
   }, [lastScrollY]);
+  useEffect(() => {
+    getCategoriesData();
+  }, []);
+  const getCategoriesData = () => {
+    getAllCategories().then((res) => {
+      setCategories(res?.data);
+    });
+  };
   return (
     <header
       className={`w-full h-[50px] shadow-md md:h-[80px] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform duration-300 ${show}`}
@@ -46,12 +56,17 @@ const Header = () => {
         >
           SHOP<span className="text-indigo-950">CART</span>
         </h1>
-        <Menu showCatMenu={showCatMenu} setShowCatMenu={setShowCatMenu} />
+        <Menu
+          showCatMenu={showCatMenu}
+          setShowCatMenu={setShowCatMenu}
+          categories={categories}
+        />
         {mobileMenu && (
           <MenuMobile
             showCatMenu={showCatMenu}
             setShowCatMenu={setShowCatMenu}
             setMobileMenu={setMobileMenu}
+            categories={categories}
           />
         )}
 

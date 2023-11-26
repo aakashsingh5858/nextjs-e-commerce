@@ -17,7 +17,7 @@ export default function Home() {
       }
     });
   };
-  // console.log(productsData, "productsData");
+  console.log(productsData, "productsData");
   return (
     <main className="">
       <HeroBanner />

@@ -2,7 +2,12 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { BsChevronDown } from "react-icons/bs";
 
-const MenuMobile = ({ showCatMenu, setShowCatMenu, setMobileMenu }) => {
+const MenuMobile = ({
+  showCatMenu,
+  setShowCatMenu,
+  setMobileMenu,
+  categories,
+}) => {
   const route = useRouter();
   const menuList = [
     { id: 1, name: "Home", onClick: () => route.push("/") },
@@ -33,17 +38,18 @@ const MenuMobile = ({ showCatMenu, setShowCatMenu, setMobileMenu }) => {
 
                 {showCatMenu && (
                   <ul className="bg-black/[0.05] -m-5 mt-4 -mb-4">
-                    {subMenuList.map((subMenu, i) => {
+                    {categories?.map((subMenu, i) => {
                       return (
                         <li
-                          key={subMenu.id}
-                          className="py-4 px-8 border-t flex justify-between"
+                          key={i}
+                          className="py-4 px-8 border-t capitalize flex justify-between"
                           onClick={() => {
                             setShowCatMenu(false);
                             setMobileMenu(false);
+                            route.push(`/category/${subMenu}`);
                           }}
                         >
-                          {subMenu.name}
+                          {subMenu}
                         </li>
                       );
                     })}
