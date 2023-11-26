@@ -6,9 +6,9 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
   const route = useRouter();
   const menuList = [
     { id: 1, name: "Home", onClick: () => route.push("/") },
-    { id: 2, name: "About", onClick: () => route.push("/about") },
+    { id: 2, name: "About" },
     { id: 3, name: "Categories", subMenu: true },
-    { id: 4, name: "Contact", onClick: () => route.push("/contact") },
+    { id: 4, name: "Contact" },
   ];
 
   return (

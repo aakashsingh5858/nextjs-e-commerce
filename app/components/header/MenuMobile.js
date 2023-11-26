@@ -11,16 +11,11 @@ const MenuMobile = ({
   const route = useRouter();
   const menuList = [
     { id: 1, name: "Home", onClick: () => route.push("/") },
-    { id: 2, name: "About", onClick: () => route.push("/about") },
+    { id: 2, name: "About" },
     { id: 3, name: "Categories", subMenu: true },
-    { id: 4, name: "Contact", onClick: () => route.push("/contact") },
+    { id: 4, name: "Contact" },
   ];
-  const subMenuList = [
-    { id: 1, name: "Jordan", doc_count: 11 },
-    { id: 2, name: "Sneakers", doc_count: 8 },
-    { id: 3, name: "Running shoes", doc_count: 64 },
-    { id: 4, name: "Football shoes", doc_count: 107 },
-  ];
+
   return (
     <ul className="flex flex-col md:hidden font-bold absolute top-[50px] left-0 w-full h-[calc(100vh-50px)] bg-white border-t text-black">
       {menuList.map((l, i) => {

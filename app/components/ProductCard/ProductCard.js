@@ -11,7 +11,7 @@ const ProductCard = ({ product }) => {
   return (
     <div
       className="bg-white rounded-xl w-[250px] hover:scale-105 duration-300 h-[330px] shadow-md flex flex-col"
-      onClick={() => route.push(`/product/${title}`)}
+      onClick={() => route.push(`/product/${id}`)}
     >
       <div className="flex items-center justify-center">
         <Image

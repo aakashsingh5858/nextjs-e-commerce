@@ -86,7 +86,7 @@ const Header = () => {
               5
             </div>
           </div>
-          <div className="w-8 md:w-12 h-8 md:h-12 rounded-full -mr-2 flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
+          <div className="w-8 md:w-12 h-8 md:h-12 md:hidden rounded-full -mr-2 flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
             {mobileMenu ? (
               <VscChromeClose
                 className="text-[16px]"
@@ -94,7 +94,7 @@ const Header = () => {
               />
             ) : (
               <BiMenuAltRight
-                className="text-[20px] md:hidden"
+                className="text-[20px] "
                 onClick={() => setMobileMenu(true)}
               />
             )}

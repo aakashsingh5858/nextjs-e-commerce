@@ -29,32 +29,21 @@ export const getAllCategories = async () => {
   }
 };
 
-// export async function generateStaticParams() {
-//   const category = await axios.get(
-//     "https://fakestoreapi.com/products/categories"
-//   );
-
-//   const path = category?.data.map((c) => ({
-//     params: {
-//       slug: c,
-//     },
-//   }));
-
-//   return {
-//     path,
-//     fallback: false,
-//   };
-// }
-// export async function getStaticProps({ param }) {
-//   console.log(param, "params");
-// }
-// console.log(getStaticProps());
-
-export const getCategories = async (slug) => {
-  console.log(slug);
+export const getProductByCategory = async (categoryId) => {
   try {
     const response = await axios.get(
-      `https://fakestoreapi.com/products/categories?[slug]=${slug}`
+      `https://fakestoreapi.com/products/category/${categoryId}`
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getProductDetails = async (productId) => {
+  try {
+    const response = await axios.get(
+      `https://fakestoreapi.com/products/${productId}`
     );
     return response;
   } catch (error) {
