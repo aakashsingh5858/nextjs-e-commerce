@@ -21,15 +21,20 @@ export default function Home() {
       }
     });
   };
+
   const sortingProducts = (val) => {
-    // if (val === 1) {
-    let sortingProduct = productsData.sort((a, b) =>
-      a.price > b.price ? 1 : -1
-    );
-    setProductsData(sortingProduct);
-    console.log(sortingProduct, "sort");
-    // }
+    const product = [...productsData];
+    if (val === "1") {
+      let sortingProduct = product.sort((a, b) => (a.price > b.price ? 1 : -1));
+      setProductsData(sortingProduct);
+    } else if (val === "2") {
+      let sortingProduct = product.sort((a, b) => (a.price < b.price ? 1 : -1));
+      setProductsData(sortingProduct);
+    } else {
+      setProductsData(product);
+    }
   };
+  console.log(productsData, "sort");
   return (
     <main className="">
       {isLoading && <Loader />}
@@ -44,11 +49,11 @@ export default function Home() {
           </div>
         </div>
         <div className="flex items-center gap-1">
-          <div className="text-[16px] font-medium">Sort by: </div>
           <select
             className="hover:text-black p-1 rounded-lg outline-none"
             onChange={(e) => sortingProducts(e.target.value)}
           >
+            <option>Sort By</option>
             <option value="1">Price : Low to High</option>
             <option value="2">Price : High to Low</option>
           </select>
