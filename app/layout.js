@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "react-loading-skeleton/dist/skeleton.css";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import Loader from "./components/loader/Loader";

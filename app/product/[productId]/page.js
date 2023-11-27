@@ -9,12 +9,15 @@ import { getProductDetails } from "@/app/api/api";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/app/redux/reducers/cartItem";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { addToWishList } from "@/app/redux/reducers/wishList";
+import Loader from "@/app/components/loader/Loader";
+import Skeleton from "react-loading-skeleton";
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const [productDetails, setProductDetails] = useState(null);
+  const [isLoading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,27 +25,32 @@ const ProductDetails = () => {
   }, [productId]);
 
   const getProductData = () => {
+    setLoading(true);
     getProductDetails(productId).then((res) => {
       setProductDetails(res?.data);
+      setLoading(false);
     });
   };
 
-  console.log(productDetails);
   return (
     <div className="w-full md:py-20">
       <Wrapper>
         <div className="flex flex-col lg:flex-row md:px-10  gap-[50px] lg:gap-[100px]">
-          <div className="w-full md:w-auto flex-[1.5] max-w-[500px] border border-yellow-300 rounded-xl flex items-center justify-center mx-auto lg:mx-0">
-            <div className="md:w-[350px] md:h-[400px] w-auto  flex items-center justify-center">
-              <Image
-                src={productDetails?.image}
-                alt="product"
-                width={400}
-                height={400}
-                className="w-full h-[400px] object-contain"
-              />
+          {isLoading || !productDetails?.image ? (
+            <Skeleton containerClassName="w-full" className="h-[500px]" />
+          ) : (
+            <div className="w-full md:w-auto flex-[1.5] max-w-[500px] border border-yellow-300 rounded-xl flex items-center justify-center mx-auto lg:mx-0">
+              <div className="md:w-[350px] md:h-[400px] w-auto  flex items-center justify-center">
+                <Image
+                  src={productDetails?.image}
+                  alt="product"
+                  width={400}
+                  height={400}
+                  className="w-full h-[400px] object-contain"
+                />
+              </div>
             </div>
-          </div>
+          )}
           <div className="flex-[1]  py-2 ">
             <div className="text-[25px] font-medium uppercase ">
               {productDetails?.title}
