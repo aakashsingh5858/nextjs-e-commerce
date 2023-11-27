@@ -76,7 +76,10 @@ const Header = () => {
         )}
 
         <div className="flex items-center gap-2 text-black">
-          <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
+          <div
+            className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative"
+            onClick={() => route.push("/wishlist")}
+          >
             <IoMdHeartEmpty className="tex-[19px] md:text-[24px]" />
             {wishListItem.length > 0 && (
               <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">

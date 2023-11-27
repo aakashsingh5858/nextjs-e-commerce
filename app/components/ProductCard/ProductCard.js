@@ -1,16 +1,24 @@
 "use client";
+import { addToCart } from "@/app/redux/reducers/cartItem";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { RxStar, RxStarFilled } from "react-icons/rx";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, isWishItem = false }) => {
   const { title, image, price, rating, id } = product;
   const route = useRouter();
+  const dispatch = useDispatch();
 
   return (
     <div
-      className="bg-white rounded-xl w-[250px] hover:scale-105 duration-300 h-[330px] shadow-md flex flex-col"
+      className={
+        isWishItem
+          ? "bg-white relative rounded-xl max-[475px]:w-full w-[250px] cursor-pointer duration-300 h-[380px] shadow-md flex flex-col"
+          : "bg-white relative rounded-xl max-[475px]:w-full w-[250px] hover:scale-105 cursor-pointer duration-300 h-[330px] shadow-md flex flex-col"
+      }
       onClick={() => route.push(`/product/${id}`)}
     >
       <div className="flex items-center justify-center">
@@ -47,6 +55,18 @@ const ProductCard = ({ product }) => {
           <p className="text-black/[0.5] text-sm">({rating?.count} review)</p>
         </div>
       </div>
+      {isWishItem && (
+        <button
+          className="w-[90%] absolute bottom-3 left-3 py-2 rounded-full bg-black text-white font-medium transition-transform mt-3 hover:opacity-75"
+          onClick={(e) => {
+            e.stopPropagation();
+            dispatch(addToCart({ ...product }));
+            toast.success("Product Added To Cart !!!");
+          }}
+        >
+          Add to Cart
+        </button>
+      )}
     </div>
   );
 };

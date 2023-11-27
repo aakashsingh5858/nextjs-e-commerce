@@ -7,7 +7,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { useParams } from "next/navigation";
 import { getProductDetails } from "@/app/api/api";
 import { useDispatch } from "react-redux";
-import { addTCart } from "@/app/redux/reducers/cartItem";
+import { addToCart } from "@/app/redux/reducers/cartItem";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addToWishList } from "@/app/redux/reducers/wishList";
@@ -92,11 +92,8 @@ const ProductDetails = () => {
             <button
               className="w-full md:w-[400px] py-3 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75"
               onClick={() => {
-                dispatch(addTCart({ ...productDetails }));
-                toast.success("Success. Check your cart!", {
-                  position: "bottom-right",
-                  autoClose: 5000,
-                });
+                dispatch(addToCart({ ...productDetails }));
+                toast.success("Product Added To Cart !!!");
               }}
             >
               Add to Cart

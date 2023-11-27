@@ -3,11 +3,14 @@ import React, { useMemo } from "react";
 import Wrapper from "../components/Wrapper";
 import CartItem from "../components/cartItem/CartItem";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { removeAllFromCart } from "../redux/reducers/cartItem";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const route = useRouter();
+  const dispatch = useDispatch();
   const cartItem = useSelector((state) => state.cartItems.cartItems);
 
   const subTotal = useMemo(() => {
@@ -54,9 +57,11 @@ const Cart = () => {
                   </div>
                 </div>
                 <button
-                  onClick={() =>
-                    alert("Thanks for shopping with us", route.push("/"))
-                  }
+                  onClick={() => {
+                    toast.success("Your Order Has Been Place Successfully");
+                    alert("Thanks for shopping with us", route.push("/"));
+                    dispatch(removeAllFromCart());
+                  }}
                   className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75"
                 >
                   Checkout
@@ -66,7 +71,7 @@ const Cart = () => {
           </>
         )}
 
-        {cartItem.length < 1 && (
+        {cartItem.length === 0 && (
           <div className="flex-[2] flex flex-col items-center pb-[50px] md:-mt-14">
             <Image
               src="/assets/empty-cart.jpg"
