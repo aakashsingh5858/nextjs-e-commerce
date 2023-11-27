@@ -6,10 +6,16 @@ import { RxStar, RxStarFilled } from "react-icons/rx";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { useParams } from "next/navigation";
 import { getProductDetails } from "@/app/api/api";
+import { useDispatch } from "react-redux";
+import { addTCart } from "@/app/redux/reducers/cartItem";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { addToWishList } from "@/app/redux/reducers/wishList";
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const [productDetails, setProductDetails] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getProductData();
@@ -20,7 +26,8 @@ const ProductDetails = () => {
       setProductDetails(res?.data);
     });
   };
-  console.log(productDetails, "productDetails");
+
+  console.log(productDetails);
   return (
     <div className="w-full md:py-20">
       <Wrapper>
@@ -82,11 +89,23 @@ const ProductDetails = () => {
               </p>
             </div>
 
-            <button className="w-full md:w-[400px] py-3 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75">
+            <button
+              className="w-full md:w-[400px] py-3 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75"
+              onClick={() => {
+                dispatch(addTCart({ ...productDetails }));
+                toast.success("Success. Check your cart!", {
+                  position: "bottom-right",
+                  autoClose: 5000,
+                });
+              }}
+            >
               Add to Cart
             </button>
-            <button className="w-full md:w-[400px] py-3 rounded-full border border-black flex items-center justify-center gap-2 text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75">
-              Whishlist
+            <button
+              onClick={() => dispatch(addToWishList({ ...productDetails }))}
+              className="w-full md:w-[400px] py-3 rounded-full border border-black flex items-center justify-center gap-2 text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75"
+            >
+              Wishlist
               <IoMdHeartEmpty size={20} />
             </button>
           </div>
