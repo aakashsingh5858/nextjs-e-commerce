@@ -4,7 +4,7 @@ import React from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 
-const CartItem = ({ data }) => {
+const CartItem = ({ data, isCheckoutItem = false }) => {
   const dispatch = useDispatch();
   const updateCartItem = (e, key) => {
     let payload = {
@@ -37,28 +37,34 @@ const CartItem = ({ data }) => {
           <div className="flex items-center gap-2 md:gap-10 text-black/[0.5] text-sm md:text-md">
             <div className="flex items-center gap-1">
               <div className="font-medium">Quantity: </div>
-              <select
-                className="hover:text-black"
-                onChange={(e) => updateCartItem(e, "quantity")}
-              >
-                {Array.from({ length: 10 }, (_, i) => i + 1).map((q, i) => {
-                  return (
-                    <option
-                      value={q}
-                      key={i}
-                      selected={data?.cartQuantity === q}
-                    >
-                      {q}
-                    </option>
-                  );
-                })}
-              </select>
+              {isCheckoutItem ? (
+                data.cartQuantity
+              ) : (
+                <select
+                  className="hover:text-black"
+                  onChange={(e) => updateCartItem(e, "quantity")}
+                >
+                  {Array.from({ length: 10 }, (_, i) => i + 1).map((q, i) => {
+                    return (
+                      <option
+                        value={q}
+                        key={i}
+                        selected={data?.cartQuantity === q}
+                      >
+                        {q}
+                      </option>
+                    );
+                  })}
+                </select>
+              )}
             </div>
           </div>
-          <RiDeleteBin6Line
-            className="cursor-pointer text-black/[.5] hover:text-black text-[16px] md:text-[20px]"
-            onClick={() => dispatch(removeFromCart({ id: data.id }))}
-          />
+          {!isCheckoutItem && (
+            <RiDeleteBin6Line
+              className="cursor-pointer text-black/[.5] hover:text-black text-[16px] md:text-[20px]"
+              onClick={() => dispatch(removeFromCart({ id: data.id }))}
+            />
+          )}
         </div>
       </div>
     </div>

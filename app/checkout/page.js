@@ -16,6 +16,11 @@ const Cart = () => {
   const subTotal = useMemo(() => {
     return cartItem.reduce((total, val) => total + val.price, 0);
   }, [cartItem]);
+
+  const grandTotal = useMemo(() => {
+    return cartItem.reduce((total, val) => total + val.price, 0);
+  }, [cartItem]);
+
   return (
     <div className="w-full md:py-20">
       <Wrapper>
@@ -23,20 +28,20 @@ const Cart = () => {
           <>
             <div className="text-center max-w-[800px] mx-auto mt-0 md:mt-0">
               <div className="text-[28px]  md:text-[32px] mb-5 font-semibold leading-tight  ">
-                Shopping Cart
+                Checkout
               </div>
             </div>
             <div className="flex flex-col lg:flex-row gap-12 py-10">
               <div className="flex-[2]">
                 <div className="text-lg font-bold mb-5">
                   {" "}
-                  Cart Items ({cartItem.length})
+                  Items ({cartItem.length})
                 </div>
                 {cartItem?.map((item, i) => {
                   console.log(item, "iii");
                   return (
                     <div key={i}>
-                      <CartItem data={item} />
+                      <CartItem data={item} isCheckoutItem />
                     </div>
                   );
                 })}
@@ -45,27 +50,43 @@ const Cart = () => {
                 <div className="text-lg font-bold ">Summary</div>
                 <div className="p-5 my-5 bg-black/[.05] rounded-xl ">
                   <div className="flex justify-between">
-                    <div className="uppercase text-md md:text-lg font-medium text-black">
+                    <div className="uppercase text-sm font-medium text-black">
                       Subtotal
                     </div>
-                    <div className="text-md md:text-lg font-medium text-black">
+                    <div className="text-sm font-medium text-black">
                       $ {subTotal.toFixed(2)}
                     </div>
                   </div>
+                  <div className="flex justify-between">
+                    <div className="uppercase text-sm font-medium text-black">
+                      International Transaction Fee
+                    </div>
+                    <div className="text-sm font-medium text-black">$ 20</div>
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="uppercase text-sm font-medium text-black">
+                      Shipping Charges
+                    </div>
+                    <div className="text-sm font-medium text-black">$ 40</div>
+                  </div>
                   <div className="text-sm md:text-md py-5 border-t mt-5">
-                    The subtotal reflects the total price of your order,
-                    including duties and taxes, before any applicable discounts.
-                    it dose not include delivery costs and international
-                    transition fees.
+                    <div className="flex justify-between">
+                      <div className="uppercase text-lg font-medium text-black">
+                        Grand Total
+                      </div>
+                      <div className="text-lg font-medium text-black">$ {grandTotal + 60}</div>
+                    </div>
                   </div>
                 </div>
                 <button
                   onClick={() => {
-                    route.push("/checkout");
+                    toast.success("Your Order Has Been Place Successfully");
+                    alert("Thanks for shopping with us", route.push("/"));
+                    dispatch(removeAllFromCart());
                   }}
                   className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75"
                 >
-                  Checkout
+                  Proceed to Payment
                 </button>
               </div>
             </div>

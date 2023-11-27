@@ -101,6 +101,7 @@ const ProductDetails = () => {
 
             <button
               className="w-full md:w-[400px] py-3 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75"
+              disabled={isLoading}
               onClick={() => {
                 dispatch(addToCart({ ...productDetails }));
                 toast.success("Product Added To Cart !!!");
@@ -110,6 +111,7 @@ const ProductDetails = () => {
             </button>
             <button
               onClick={() => dispatch(addToWishList({ ...productDetails }))}
+              disabled={isLoading}
               className="w-full md:w-[400px] py-3 rounded-full border border-black flex items-center justify-center gap-2 text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75"
             >
               Wishlist
