@@ -27,7 +27,9 @@ const ProductDetails = () => {
   const getProductData = () => {
     setLoading(true);
     getProductDetails(productId).then((res) => {
-      setProductDetails(res?.data);
+      if (res?.status && res.status === 200) {
+        setProductDetails(res?.data);
+      }
       setLoading(false);
     });
   };

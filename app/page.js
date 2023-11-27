@@ -17,7 +17,7 @@ export default function Home() {
   const getAllProductsData = () => {
     setLoading(true);
     getAllProducts().then((res) => {
-      if (res.status && res.status === 200) {
+      if (res?.status && res.status === 200) {
         setProductsData(res?.data);
       }
       setLoading(false);
