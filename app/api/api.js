@@ -1,8 +1,8 @@
-import axios from "axios";
+import api from "../utils/api";
 
 export const getAllProducts = async () => {
   try {
-    const response = await axios.get("https://fakestoreapi.com/products");
+    const response = await api.get("/products");
     return response;
   } catch (error) {
     console.error(error);
@@ -11,9 +11,7 @@ export const getAllProducts = async () => {
 
 export const getAllCategories = async () => {
   try {
-    const response = await axios.get(
-      "https://fakestoreapi.com/products/categories"
-    );
+    const response = await api.get("/products/categories");
     return response;
   } catch (error) {
     console.error(error);
@@ -22,9 +20,7 @@ export const getAllCategories = async () => {
 
 export const getProductByCategory = async (categoryId) => {
   try {
-    const response = await axios.get(
-      `https://fakestoreapi.com/products/category/${categoryId}`
-    );
+    const response = await api.get(`/products/category/${categoryId}`);
     return response;
   } catch (error) {
     console.error(error);
@@ -33,9 +29,7 @@ export const getProductByCategory = async (categoryId) => {
 
 export const getProductDetails = async (productId) => {
   try {
-    const response = await axios.get(
-      `https://fakestoreapi.com/products/${productId}`
-    );
+    const response = await api.get(`/products/${productId}`);
     return response;
   } catch (error) {
     console.error(error);
